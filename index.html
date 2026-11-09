@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qiblatayn: Prayer Times, Qibla Compass &amp; Adhan</title>
+<meta name="description" content="Accurate prayer times, a true-north qibla compass and the adhan, in ten languages. Free, offline, and your location never leaves your phone.">
+<link rel="canonical" href="https://qiblatayn.github.io/">
+<link rel="alternate" hreflang="en" href="https://qiblatayn.github.io/">
+<link rel="alternate" hreflang="ar" href="https://qiblatayn.github.io/ar/">
+<link rel="alternate" hreflang="x-default" href="https://qiblatayn.github.io/">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta name="theme-color" content="#EFE9E1">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Qiblatayn">
+<meta property="og:title" content="Qiblatayn: one direction, from anywhere on earth">
+<meta property="og:description" content="Accurate prayer times, a true-north qibla compass and the adhan, in ten languages. Free, offline, and your location never leaves your phone.">
+<meta property="og:url" content="https://qiblatayn.github.io/">
+<meta property="og:image" content="https://qiblatayn.github.io/img/og.png">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ar_AR">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"MobileApplication","name":"Qiblatayn","alternateName":"Qiblatayn: Prayer & Qibla","url":"https://qiblatayn.github.io/","inLanguage":"en","description":"Accurate prayer times, a true-north qibla compass and the adhan, in ten languages. Free, offline, and your location never leaves your phone.","applicationCategory":"LifestyleApplication","operatingSystem":"Android","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":"https://qiblatayn.github.io/img/icon-512.png","downloadUrl":"https://play.google.com/store/apps/details?id=com.tarazi.qiblacompass","author":{"@type":"Person","name":"Haviv Tarazi"}},{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"en","mainEntity":[{"@type":"Question","name":"Does Qiblatayn work without internet?","acceptedAnswer":{"@type":"Answer","text":"Yes. Once your location is known, prayer times and the qibla are pure calculation on the phone."}},{"@type":"Question","name":"Why do my times differ from another app?","acceptedAnswer":{"@type":"Answer","text":"Different calculation methods. Choose the one your mosque uses, or add a minute offset per prayer."}},{"@type":"Question","name":"How accurate is the qibla compass?","acceptedAnswer":{"@type":"Answer","text":"As accurate as your phone's compass allows. Qiblatayn corrects magnetic north to true north with the World Magnetic Model, shows when the sensor needs calibrating, and guides you through a quick figure-eight. Keep away from metal and magnets while you read it."}},{"@type":"Question","name":"Which calculation method should I choose?","acceptedAnswer":{"@type":"Answer","text":"The one your local mosque or authority uses — for example Umm al-Qura in Saudi Arabia, Diyanet in Turkey, ISNA in North America. If a time still differs by a minute or two, add an offset to that prayer."}},{"@type":"Question","name":"Does Qiblatayn share my location?","acceptedAnswer":{"@type":"Answer","text":"No. Your location is used on the phone to calculate times and the qibla, and it is never sent to us or anyone else. You can also type a city by hand instead of using GPS."}},{"@type":"Question","name":"Why is the Hijri date one day off?","acceptedAnswer":{"@type":"Answer","text":"Months begin with a moon sighting, which differs between countries. Use the Hijri date adjustment in Settings to match your community."}},{"@type":"Question","name":"Will a travel pass renew by itself?","acceptedAnswer":{"@type":"Answer","text":"No. A 7, 14 or 30-day pass simply ends. Only the monthly and yearly options renew, and they can be cancelled at any time in your store account."}},{"@type":"Question","name":"I changed phones. How do I get Premium back?","acceptedAnswer":{"@type":"Answer","text":"Install Qiblatayn, open Premium and tap Restore purchases, signed in with the same store account you bought it with."}},{"@type":"Question","name":"What does the name mean?","acceptedAnswer":{"@type":"Answer","text":"Masjid al-Qiblatayn in Madinah is where the direction of prayer turned from Jerusalem to Makkah."}}]}]</script>
+<style>
+@font-face { font-family: "Instrument Serif"; src: url(fonts/instrument-1.woff2) format("woff2"); font-style: normal; font-display: swap; }
+@font-face { font-family: "Instrument Serif"; src: url(fonts/instrument-0.woff2) format("woff2"); font-style: italic; font-display: swap; }
+@font-face { font-family: "Outfit"; src: url(fonts/outfit-0.woff2) format("woff2"); font-weight: 300 700; font-display: swap; }
+@font-face { font-family: "Syne"; src: url(fonts/syne-0.woff2) format("woff2"); font-weight: 500 800; font-display: swap; }
+:root {
+  /* Fresh base */
+  --bg: #EFE9E1; --card: #FAF8F4; --ink: #290907; --muted: #57473A; --sage: #D0D5CE; --sky: #73A1B2;
+  /* Qiblatayn's leading colours */
+  --green: #1F8A5D; --green-lit: #34C48A; --gold: #D4AF37; --night: #0B1512;
+}
+* { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font: 300 18px/1.65 "Outfit", system-ui, sans-serif; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+h1, h2, h3 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; line-height: 1.02; letter-spacing: -0.01em; }
+h1 { font-size: clamp(50px, 6.2vw, 90px); }
+h2 { font-size: clamp(40px, 5.2vw, 72px); }
+em { font-style: italic; color: var(--green); }
+.kicker { font-size: 12px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.kicker b { color: var(--gold); font-weight: 600; }
+.num { font-family: "Syne", sans-serif; font-weight: 700; letter-spacing: -0.03em; }
+
+/* nav — from C */
+nav { position: fixed; inset: 16px 16px auto; z-index: 20; display: flex; justify-content: space-between; align-items: center; padding: 10px 12px 10px 18px; border-radius: 999px; background: color-mix(in srgb, var(--card) 80%, transparent); backdrop-filter: blur(14px); box-shadow: 0 10px 30px -18px rgba(41,9,7,.4); max-width: 1180px; margin: 0 auto; }
+.brand { display: flex; gap: 10px; align-items: center; font: italic 26px "Instrument Serif"; }
+.brand img { width: 30px; height: 30px; border-radius: 8px; }
+nav .r { display: flex; gap: 8px; align-items: center; font-size: 15px; }
+nav .r a.ln { padding: 8px 12px; color: var(--muted); }
+nav .get { padding: 10px 20px; border-radius: 999px; background: var(--green); color: #fff; font-weight: 500; transition: transform .2s; }
+nav .get:hover { transform: scale(1.04); }
+
+/* hero — C, with a real map on the globe */
+.hero { min-height: min(100vh, 920px); display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 30px; padding-top: 100px; }
+.hero p { color: var(--muted); font-size: 21px; max-width: 470px; margin: 26px 0 34px; }
+.globe { width: min(560px, 100%); aspect-ratio: 1; justify-self: center; position: relative; cursor: grab; touch-action: pan-y; }
+.globe:active { cursor: grabbing; }
+.globe canvas { width: 100%; height: 100%; display: block; }
+.globe .tag { position: absolute; left: 50%; bottom: 1%; transform: translateX(-50%); background: var(--card); padding: 10px 18px; border-radius: 999px; font-size: 15px; white-space: nowrap; box-shadow: 0 10px 30px -18px rgba(41,9,7,.5); }
+.globe .tag b { color: var(--green); font-weight: 600; }
+.stores { display: flex; gap: 12px; flex-wrap: wrap; }
+.store { display: flex; gap: 10px; align-items: center; padding: 11px 20px; border-radius: 14px; background: var(--ink); color: var(--card); transition: transform .2s; }
+.store:hover { transform: translateY(-2px); }
+.store small { display: block; font-size: 11px; opacity: .7; line-height: 1; } .store b { font-size: 17px; font-weight: 500; }
+/* the row the nav button points at — lights up for a moment, as on Moed's page */
+#get { width: fit-content; max-width: 100%; padding: 14px; margin: -14px; border-radius: 24px; scroll-margin-top: 140px; outline: 2px solid color-mix(in srgb, var(--green) 0%, transparent); }
+#get.lookhere { animation: lookhere 2.6s cubic-bezier(.33, 0, .2, 1) both; }
+@keyframes lookhere {
+  0%      { background-color: color-mix(in srgb, var(--green) 0%, transparent);  outline-color: color-mix(in srgb, var(--green) 0%, transparent); }
+  9%, 42% { background-color: color-mix(in srgb, var(--green) 13%, transparent); outline-color: color-mix(in srgb, var(--green) 55%, transparent); }
+  100%    { background-color: color-mix(in srgb, var(--green) 0%, transparent);  outline-color: color-mix(in srgb, var(--green) 0%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) { #get.lookhere { animation: none; background-color: color-mix(in srgb, var(--green) 13%, transparent); outline-color: color-mix(in srgb, var(--green) 55%, transparent); } }
+.cities { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 30px; }
+.cities button { font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); background: transparent; cursor: pointer; color: var(--muted); transition: all .2s; }
+.cities button:hover { border-color: var(--green); color: var(--green); }
+.cities button[aria-pressed="true"] { background: var(--ink); color: var(--card); border-color: var(--ink); }
+
+/* language band — B */
+.band { margin-top: 60px; background: var(--green); color: #fff; padding: 24px 0; overflow: hidden; transform: rotate(-2deg); }
+.band .track { display: flex; gap: 40px; width: max-content; animation: slide 32s linear infinite; font: 700 38px "Syne"; white-space: nowrap; }
+.band .track span::after { content: "✦"; margin-left: 40px; color: var(--gold); }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* facts — B */
+.numbers { margin-top: 110px; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 2px solid var(--ink); }
+.n { padding: 30px 24px 30px 0; border-right: 1px solid color-mix(in srgb, var(--ink) 15%, transparent); }
+.n + .n { padding-left: 24px; } .n:last-child { border-right: 0; }
+.n b { display: block; font-size: 64px; color: var(--green); line-height: 1; }
+.n span { font-weight: 600; } .n p { color: var(--muted); font-size: 15px; margin-top: 6px; }
+
+/* compass window — B */
+.window { margin-top: 120px; border-radius: 40px; background-color: var(--night); color: #E8F1EC; padding: 60px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 50px; align-items: center; position: relative; overflow: hidden;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%2334C48A' stroke-opacity='.07'%3E%3Cpath d='M40 8l9 23 23 9-23 9-9 23-9-23-23-9 23-9z'/%3E%3Crect x='22' y='22' width='36' height='36' transform='rotate(45 40 40)'/%3E%3C/g%3E%3C/svg%3E"); }
+.window h2 { color: #fff; } .window h2 em { color: var(--gold); }
+.window p { color: #A9BDB3; margin: 18px 0 26px; max-width: 440px; }
+.pill { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; background: var(--green-lit); color: var(--night); }
+select, .me { font: inherit; font-size: 16px; padding: 13px 18px; border-radius: 14px; border: 0; background: rgba(255,255,255,.08); color: #fff; }
+select { min-width: 220px; } select option { color: #000; }
+.me { cursor: pointer; margin-left: 8px; border: 1.5px solid var(--green-lit); background: transparent; transition: all .2s; }
+.me:hover { background: var(--green-lit); color: var(--night); }
+.priv-note { font-size: 13px; color: #7F978B; margin-top: 12px; }
+.ring { width: min(400px, 100%); aspect-ratio: 1; justify-self: center; }
+.ring svg { width: 100%; height: 100%; overflow: visible; }
+.needle { transform-origin: 200px 200px; transition: transform 1.2s cubic-bezier(.2,.9,.25,1.15); }
+.big { display: flex; gap: 40px; margin-top: 28px; }
+.big b { display: block; font-size: 54px; color: var(--green-lit); line-height: 1; }
+.big span { font-size: 13px; color: #8FA69B; }
+
+/* feature cards — B */
+.cards { margin-top: 120px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.card { background: var(--card); border-radius: 30px 30px 30px 6px; padding: 34px; transition: transform .3s; }
+.card:hover { transform: rotate(-1deg) translateY(-6px); }
+.card h3 { font-size: 36px; margin: 16px 0 10px; }
+.card p { color: var(--muted); }
+.card .k { width: 54px; height: 54px; border-radius: 999px 999px 8px 8px; background: var(--green); display: grid; place-items: center; font-size: 24px; }
+.card.gold .k { background: var(--gold); }
+.card.dark { background: var(--ink); color: var(--bg); } .card.dark p { color: #CBB9A8; }
+
+/* privacy statement — B, then the two panels — A */
+.statement { margin: 140px 0 50px; text-align: center; }
+.statement h2 { font-size: clamp(46px, 7vw, 100px); }
+.statement p { color: var(--muted); font-size: 20px; max-width: 620px; margin: 24px auto 0; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.panel { border-radius: 32px; padding: 44px; }
+.panel.priv { background: var(--sage); } .panel.prem { background: var(--card); }
+.panel h3 { font-size: 40px; }
+.panel ul { list-style: none; padding: 0; margin-top: 18px; }
+.panel li { padding: 11px 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 9%, transparent); display: flex; gap: 10px; }
+.panel li::before { content: "✦"; color: var(--green); } .prem li::before { color: var(--gold); }
+
+/* language list — C */
+.langs { padding: 120px 0 90px; text-align: center; }
+.langs .words { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 34px; margin-top: 30px; font: 400 clamp(30px, 4vw, 52px) "Instrument Serif"; }
+.langs .words span { opacity: .28; transition: opacity .6s, color .6s; }
+.langs .words span.on { opacity: 1; color: var(--green); }
+
+/* FAQ — A */
+.faq h2 { margin-bottom: 26px; }
+details { background: var(--card); border-radius: 18px; padding: 20px 26px; margin-bottom: 10px; }
+summary { cursor: pointer; font-weight: 500; font-size: 18px; list-style: none; display: flex; justify-content: space-between; gap: 20px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--green); font-size: 24px; line-height: 1; transition: transform .2s; }
+details[open] summary::after { transform: rotate(45deg); }
+details p { color: var(--muted); margin-top: 10px; }
+
+/* final call — B */
+.final { margin: 110px 0 80px; background: var(--sage); border-radius: 40px; padding: 60px; display: flex; justify-content: space-between; align-items: center; gap: 30px; flex-wrap: wrap; }
+.final h2 { margin-bottom: 24px; }
+.qr { width: 120px; height: 120px; border-radius: 16px; border: 10px solid var(--card); background: repeating-conic-gradient(var(--ink) 0 25%, var(--card) 0 50%) 0 0/20px 20px; }
+.qr.sm { display: block; width: 62px; height: 62px; border-width: 6px; border-radius: 12px; background-size: 12px 12px; box-shadow: 0 0 0 1px var(--sage); }
+.qr-top { display: flex; align-items: center; gap: 12px; margin-left: 6px; font-size: 13px; line-height: 1.35; color: var(--muted); }
+.hint { font-size: 14px; color: var(--muted); margin: 26px 0 0; }
+.hint + .cities { margin-top: 10px; }
+
+/* screens strip */
+.screens { margin-top: 110px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
+.screens figure { margin: 0; }
+.screens .ph { aspect-ratio: 700/1400; border-radius: 34px; overflow: hidden; border: 8px solid #121212; box-shadow: 0 40px 60px -40px rgba(41,9,7,.55); transition: transform .4s; }
+.screens figure:nth-child(even) .ph { transform: translateY(40px); }
+.screens figure:hover .ph { transform: translateY(-8px); }
+.screens .ph img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.screens figcaption { margin-top: 18px; font-size: 15px; color: var(--muted); text-align: center; }
+.screens figure:nth-child(even) figcaption { margin-top: 58px; }
+
+/* everything in the free app */
+.inside { margin-top: 130px; }
+.inside .head { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 34px; }
+.inside .head p { color: var(--muted); max-width: 420px; }
+.groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.group { background: var(--card); border-radius: 26px; padding: 30px; }
+.group h3 { font-size: 30px; margin-bottom: 10px; }
+.group ul { list-style: none; padding: 0; }
+.group li { padding: 9px 0; border-bottom: 1px solid color-mix(in srgb, var(--ink) 8%, transparent); font-size: 16px; }
+.group li:last-child { border-bottom: 0; }
+.group li b { font-weight: 500; }
+
+/* free vs premium */
+.compare { margin-top: 120px; }
+.compare table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 30px; background: var(--card); border-radius: 28px; overflow: hidden; }
+.compare th, .compare td { padding: 16px 24px; text-align: left; border-bottom: 1px solid color-mix(in srgb, var(--ink) 8%, transparent); font-size: 16px; }
+.compare th { font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.compare th:nth-child(n+2), .compare td:nth-child(n+2) { text-align: center; width: 18%; }
+.compare tr:last-child td { border-bottom: 0; }
+.compare .y { color: var(--green); font-weight: 600; } .compare .p { color: #9A7A12; font-weight: 600; }
+.compare .note { color: var(--muted); font-size: 14px; margin-top: 14px; }
+@media (max-width: 900px) { .screens { grid-template-columns: 1fr 1fr; } .groups { grid-template-columns: 1fr; } .compare th, .compare td { padding: 12px 12px; font-size: 14px; } .qr-top { display: none; } }
+
+footer { border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
+footer .wrap { display: flex; justify-content: space-between; padding: 36px 28px 60px; font-size: 14px; color: var(--muted); }
+footer a { margin-left: 20px; }
+
+.fade { opacity: 0; transform: translateY(30px); transition: opacity 1s, transform 1s cubic-bezier(.2,.9,.2,1); } .fade.in { opacity: 1; transform: none; }
+
+@media (max-width: 900px) {
+  .hero, .window, .split { grid-template-columns: 1fr; } .hero { min-height: auto; padding-top: 110px; }
+  .window, .panel, .final { padding: 34px 22px; } .numbers { grid-template-columns: 1fr 1fr; } .cards { grid-template-columns: 1fr; }
+  nav .r a.ln { display: none; } .me { margin: 10px 0 0; }
+}
+/* Animation off: the band stands still and wraps, the list stays one colour. */
+@media (prefers-reduced-motion: reduce) {
+  .band .track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; row-gap: 8px; }
+  .fade { opacity: 1; transform: none; } .needle { transition: none; }
+  .langs .words span { opacity: 1; color: var(--ink); }
+}
+
+/* ===== live site ===== */
+.store.badge { background: none; padding: 0; position: relative; }
+.store.badge img { display: block; height: 52px; width: auto; }
+.store.badge.play img { height: 77px; margin: -12px -10px; }
+.store.soon { cursor: default; }
+.store.soon img { opacity: .5; }
+.store.soon:hover { transform: none; }
+.soon-tag { position: absolute; top: -9px; inset-inline-end: -8px; background: var(--gold); color: var(--ink); font-size: 11px; font-weight: 600; line-height: 1; padding: 4px 9px; border-radius: 999px; }
+img.qr { display: block; background: var(--card); }
+</style>
+</head>
+<body>
+<nav><a class="brand" href="./"><img src="img/icon-96.png" alt="" width="30" height="30">Qiblatayn</a>
+  <div class="r"><a class="ln" href="#qibla">Qibla</a><a class="ln" href="#features">Features</a><a class="ln" href="#faq">FAQ</a><a class="ln" href="ar/" lang="ar" hreflang="ar">🌐 العربية</a><a class="get" id="getApp" href="#get">Get the app</a></div></nav>
+
+<header class="wrap hero">
+  <div>
+    <p class="kicker">A prayer companion · <b>wherever you are</b></p>
+    <h1 style="margin-top:20px">One direction,<br><em>from anywhere</em><br>on earth.</h1>
+    <p>Prayer times, the qibla and the adhan — accurate in your home city and in the next one you land in. Free, offline, private.</p>
+    <div class="stores" id="get">
+      <a class="store badge apple soon" data-store="apple" aria-disabled="true"><img src="img/badge-appstore-en.svg" alt="Download on the App Store" width="120" height="40"><span class="soon-tag">Coming soon</span></a>
+      <a class="store badge play" data-store="play" href="https://play.google.com/store/apps/details?id=com.tarazi.qiblacompass" target="_blank" rel="noopener"><img src="img/badge-googleplay-en.png" alt="Get it on Google Play" width="646" height="250"></a>
+      <div class="qr-top"><img class="qr sm" src="img/qr.svg" alt="QR code: download Qiblatayn"><span>On a computer?<br>Scan with your phone.</span></div>
+    </div>
+    <p class="hint">Pick a city — the globe draws its way to Makkah.</p>
+    <div class="cities" id="cities"></div>
+  </div>
+  <div class="globe" id="globe"><canvas id="g" width="1120" height="1120" aria-label="Globe showing the way from a city to Makkah"></canvas><div class="tag" id="tag">—</div></div>
+</header>
+
+<div class="band" aria-hidden="true"><div class="track" id="band"></div></div>
+
+<section class="wrap">
+  <div class="numbers">
+    <div class="n fade"><b class="num">12</b><span>calculation methods</span><p>MWL, Umm al-Qura, ISNA, Diyanet and more, plus a minute offset per prayer.</p></div>
+    <div class="n fade"><b class="num">10</b><span>languages</span><p>Arabic, Urdu, Persian, Indonesian, Turkish, Bengali, Malay, French, Russian, English.</p></div>
+    <div class="n fade"><b class="num">0</b><span>trackers</span><p>No ads, no analytics. Location is used on the phone and nowhere else.</p></div>
+    <div class="n fade"><b class="num">∞</b><span>offline</span><p>Times and qibla are pure calculation — no signal needed.</p></div>
+  </div>
+</section>
+
+<section class="wrap screens">
+  <figure class="fade"><div class="ph"><img src="img/qibla.jpg" alt="Qibla compass"></div><figcaption>The qibla, corrected to true north</figcaption></figure>
+  <figure class="fade"><div class="ph"><img src="img/times.jpg" alt="Prayer times"></div><figcaption>Today's prayers and the next one</figcaption></figure>
+  <figure class="fade"><div class="ph"><img src="img/methods.jpg" alt="Calculation methods"></div><figcaption>Twelve calculation methods</figcaption></figure>
+  <figure class="fade"><div class="ph"><img src="img/lang.jpg" alt="Languages"></div><figcaption>Ten languages, all free</figcaption></figure>
+</section>
+
+<section class="wrap" id="qibla">
+  <div class="window fade">
+    <div>
+      <span class="pill">Live, in your browser</span>
+      <h2 style="margin-top:18px">Your qibla, <em>right now.</em></h2>
+      <p>Choose a city, or let your browser share your position with this page only. The bearing is worked out here, on your device.</p>
+      <div><select id="city" aria-label="City"></select><button class="me" id="me">📍 Use my location</button></div>
+      <p class="priv-note">Your position is never sent anywhere — there is no server behind this page.</p>
+      <div class="big"><div><b class="num" id="brg">—</b><span>bearing from true north</span></div><div><b class="num" id="dst">—</b><span>km to the Kaaba</span></div></div>
+    </div>
+    <div class="ring">
+      <svg viewBox="0 0 400 400">
+        <defs><radialGradient id="glow"><stop offset="0" stop-color="#34C48A" stop-opacity=".25"/><stop offset="1" stop-color="#34C48A" stop-opacity="0"/></radialGradient></defs>
+        <circle cx="200" cy="200" r="200" fill="url(#glow)"/>
+        <path d="M110 330 V170 a90 90 0 0 1 180 0 V330" fill="none" stroke="rgba(212,175,55,.35)" stroke-width="2"/>
+        <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>
+        <g id="ticks"></g>
+        <text x="200" y="38" fill="#fff" text-anchor="middle" font-family="Syne" font-weight="700" font-size="22">N</text>
+        <g class="needle" id="needle">
+          <path d="M200 200 L193 80 L200 52 L207 80 Z" fill="#34C48A"/>
+          <rect x="186" y="18" width="28" height="28" rx="3" fill="#D4AF37"/>
+          <rect x="186" y="25" width="28" height="4" fill="#0B1512"/>
+        </g>
+        <circle cx="200" cy="200" r="9" fill="#fff"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="wrap cards" id="features">
+  <div class="card fade"><div class="k">🕌</div><h3>Adhan you can trust</h3><p>Per prayer: the adhan, a silent banner, or nothing. A test button shows exactly what you will hear.</p></div>
+  <div class="card fade"><div class="k">🌙</div><h3>The Hijri year</h3><p>Every holiday of the year, a fast window on fast days, and an adjustment for local sighting.</p></div>
+  <div class="card fade"><div class="k">📿</div><h3>Tasbih beads</h3><p>Tap a string of beads. Pick a sequence or count freely; nothing is kept afterwards.</p></div>
+  <div class="card gold fade"><div class="k">📷</div><h3>AR qibla</h3><p>Premium. Hold up the camera and the Kaaba's direction appears on what you see.</p></div>
+  <div class="card gold fade"><div class="k">⌚</div><h3>Watch &amp; widgets</h3><p>Premium. The next prayer at a glance, and the qibla compass on Apple Watch.</p></div>
+  <div class="card dark fade"><div class="k">✈️</div><h3>Made for travel</h3><p>Abroad for a week? A 7, 14 or 30-day pass simply ends. No renewal, no surprise.</p></div>
+</section>
+
+<section class="wrap inside">
+  <div class="head fade">
+    <div><p class="kicker">In the free app</p><h2 style="margin-top:10px">Everything a day of <em>prayer</em> needs.</h2></div>
+    <p>No account, no sign-up. Open it, allow location or type your city, and the day is there.</p>
+  </div>
+  <div class="groups">
+    <div class="group fade"><h3>Prayer times</h3><ul>
+      <li><b>12 calculation methods</b> — MWL, Umm al-Qura, Egyptian, Karachi, ISNA, Diyanet, Tehran, Dubai, Qatar, Kuwait, Singapore, Moonsighting</li>
+      <li>Asr by the standard or the <b>Hanafi</b> rule</li>
+      <li><b>High-latitude</b> rules for long summer days</li>
+      <li>A <b>minute offset per prayer</b>, to match your mosque</li>
+      <li>Any day's times — browse forward and back</li>
+      <li>Shown on the <b>city's own clock</b>, even when your phone is elsewhere</li>
+    </ul></div>
+    <div class="group fade"><h3>Reminders &amp; adhan</h3><ul>
+      <li>Per prayer: <b>adhan</b>, a silent banner, or off</li>
+      <li>The adhan recorded in <b>Doha</b>, in the public domain</li>
+      <li>An optional <b>reminder before</b> each prayer</li>
+      <li>A <b>test notification</b> — hear exactly what will play</li>
+      <li>Scheduled on the phone, no server and no internet needed</li>
+    </ul></div>
+    <div class="group fade"><h3>Hijri calendar</h3><ul>
+      <li>Today's <b>Hijri date</b>, with a ± day adjustment for local sighting</li>
+      <li>The day turns at <b>midnight or at sunset</b> — your choice</li>
+      <li>Every <b>holiday of the year</b> on one screen</li>
+      <li>Optional: Mawlid, mid-Shaʿbān, <b>Monday &amp; Thursday</b> fasts</li>
+      <li>Jumuʿah marked on Fridays; the fast window on fast days</li>
+    </ul></div>
+    <div class="group fade"><h3>Qibla compass</h3><ul>
+      <li><b>True north</b> from the World Magnetic Model, offline</li>
+      <li>A calibration guide and an honest accuracy indicator</li>
+      <li>Bearing in degrees and <b>distance to the Kaaba</b></li>
+      <li>A soft haptic when you face it</li>
+    </ul></div>
+    <div class="group fade"><h3>Personal dates</h3><ul>
+      <li>Birthdays, anniversaries and <b>remembrance</b> days</li>
+      <li>Repeat by the <b>Hijri or the Gregorian</b> calendar</li>
+      <li>A reminder at the time you choose</li>
+      <li><b>Two</b> free; more with Premium</li>
+    </ul></div>
+    <div class="group fade"><h3>Tasbih</h3><ul>
+      <li>A string of beads you tap, with a gentle tick</li>
+      <li>33·33·34, 33·33·33+1, 34·33·33, or an <b>open</b> count</li>
+      <li>Moves to the next phrase on its own, if you want</li>
+      <li>No history, no totals — it forgets when you are done</li>
+    </ul></div>
+  </div>
+</section>
+
+<section class="wrap statement fade">
+  <h2>Your location<br><em>never leaves</em> your phone.</h2>
+  <p>Some prayer apps have sold their users' whereabouts. Qiblatayn has no server to send it to.</p>
+</section>
+
+<section class="wrap split">
+  <div class="panel priv fade">
+    <p class="kicker" style="color:var(--green)">Privacy first</p>
+    <h3 style="margin-top:8px">What that <em>means</em></h3>
+    <ul><li>Prayer times and qibla are calculated on your phone.</li><li>No ads, no tracking, no selling of data — ever.</li><li>Works fully offline once your location is known.</li></ul>
+  </div>
+  <div class="panel prem fade">
+    <p class="kicker" style="color:var(--green)">Free, with optional Premium</p>
+    <h3 style="margin-top:8px">The prayer core is <em>always free.</em></h3>
+    <ul><li>Times, qibla and the adhan stay free for good.</li><li>Monthly, yearly or a one-time lifetime unlock.</li><li>Premium adds extras; it never locks a prayer.</li></ul>
+  </div>
+</section>
+
+<section class="wrap compare">
+  <div class="fade"><p class="kicker">Free and Premium</p><h2 style="margin-top:10px">What is free, and <em>what is extra.</em></h2></div>
+  <table class="fade">
+    <thead><tr><th></th><th>Free</th><th>Premium</th></tr></thead>
+    <tbody>
+      <tr><td>Prayer times, all methods and offsets</td><td class="y">✓</td><td class="y">✓</td></tr>
+      <tr><td>Qibla compass with true north</td><td class="y">✓</td><td class="y">✓</td></tr>
+      <tr><td>Adhan and reminders for every prayer</td><td class="y">✓</td><td class="y">✓</td></tr>
+      <tr><td>Hijri calendar and the year's holidays</td><td class="y">✓</td><td class="y">✓</td></tr>
+      <tr><td>Tasbih counter</td><td class="y">✓</td><td class="y">✓</td></tr>
+      <tr><td>All ten languages</td><td class="y">✓</td><td class="y">✓</td></tr>
+      <tr><td>Saved locations</td><td>1</td><td class="p">Unlimited</td></tr>
+      <tr><td>Personal dates</td><td>2</td><td class="p">Unlimited</td></tr>
+      <tr><td>AR qibla through the camera</td><td>—</td><td class="p">✓</td></tr>
+      <tr><td>Home-screen widgets</td><td>—</td><td class="p">✓</td></tr>
+      <tr><td>Apple Watch: compass and next prayer on the face</td><td>—</td><td class="p">✓</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Premium comes as a 7, 14 or 30-day travel pass that simply ends, a monthly or yearly subscription, or a one-time lifetime unlock. Prices are shown in your store, in your currency.</p>
+</section>
+
+<section class="wrap langs fade">
+  <p class="kicker">Ten languages, <b>all free</b></p>
+  <div class="words" id="words"></div>
+</section>
+
+<section class="wrap faq" id="faq">
+  <h2 class="fade">Questions</h2>
+  <details><summary>Does Qiblatayn work without internet?</summary><p>Yes. Once your location is known, prayer times and the qibla are pure calculation on the phone.</p></details>
+  <details><summary>Why do my times differ from another app?</summary><p>Different calculation methods. Choose the one your mosque uses, or add a minute offset per prayer.</p></details>
+  <details><summary>How accurate is the qibla compass?</summary><p>As accurate as your phone's compass allows. Qiblatayn corrects magnetic north to true north with the World Magnetic Model, shows when the sensor needs calibrating, and guides you through a quick figure-eight. Keep away from metal and magnets while you read it.</p></details>
+  <details><summary>Which calculation method should I choose?</summary><p>The one your local mosque or authority uses — for example Umm al-Qura in Saudi Arabia, Diyanet in Turkey, ISNA in North America. If a time still differs by a minute or two, add an offset to that prayer.</p></details>
+  <details><summary>Does Qiblatayn share my location?</summary><p>No. Your location is used on the phone to calculate times and the qibla, and it is never sent to us or anyone else. You can also type a city by hand instead of using GPS.</p></details>
+  <details><summary>Why is the Hijri date one day off?</summary><p>Months begin with a moon sighting, which differs between countries. Use the Hijri date adjustment in Settings to match your community.</p></details>
+  <details><summary>Will a travel pass renew by itself?</summary><p>No. A 7, 14 or 30-day pass simply ends. Only the monthly and yearly options renew, and they can be cancelled at any time in your store account.</p></details>
+  <details><summary>I changed phones. How do I get Premium back?</summary><p>Install Qiblatayn, open Premium and tap Restore purchases, signed in with the same store account you bought it with.</p></details>
+  <details><summary>What does the name mean?</summary><p>Masjid al-Qiblatayn in Madinah is where the direction of prayer turned from Jerusalem to Makkah.</p></details>
+</section>
+
+<section class="wrap">
+  <div class="final fade">
+    <div><h2>Ready when<br><em>the adhan is.</em></h2><div class="stores">
+      <a class="store badge apple soon" data-store="apple" aria-disabled="true"><img src="img/badge-appstore-en.svg" alt="Download on the App Store" width="120" height="40"><span class="soon-tag">Coming soon</span></a>
+      <a class="store badge play" data-store="play" href="https://play.google.com/store/apps/details?id=com.tarazi.qiblacompass" target="_blank" rel="noopener"><img src="img/badge-googleplay-en.png" alt="Get it on Google Play" width="646" height="250"></a></div></div>
+    <div style="display:flex;gap:16px;align-items:center"><img class="qr" src="img/qr.svg" alt="QR code: download Qiblatayn"><span style="color:var(--muted);font-size:14px;max-width:150px">On a computer? Scan with your phone's camera</span></div>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>© 2026 Qiblatayn</span><span><a href="privacy/">Privacy</a><a href="support/">Support</a></span></div></footer>
+
+<script src="shared.js"></script>
+<script src="land-dots.js"></script>
+<script>
+const LANGS = ['English','العربية','اردو','فارسی','Bahasa Indonesia','Türkçe','Français','বাংলা','Bahasa Melayu','Русский'];
+
+/* ---------- globe: land dots, route to the Kaaba, drag to turn ---------- */
+const cv = document.getElementById('g'), ctx = cv.getContext('2d'), S = cv.width, R = S * 0.42, C = S / 2;
+let view = { lat: 25, lon: 30 }, target = { ...view }, city = CITIES[0], drawT = 0, dragging = null;
+function proj(lat, lon) {
+  const p = rad(lat), l = rad(lon - view.lon), p0 = rad(view.lat);
+  const cosc = Math.sin(p0) * Math.sin(p) + Math.cos(p0) * Math.cos(p) * Math.cos(l);
+  return { x: C + R * Math.cos(p) * Math.sin(l), y: C - R * (Math.cos(p0) * Math.sin(p) - Math.sin(p0) * Math.cos(p) * Math.cos(l)), z: cosc };
+}
+function gc(a, b, t) {
+  const p1 = rad(a.lat), l1 = rad(a.lon), p2 = rad(b.lat), l2 = rad(b.lon);
+  const d = 2 * Math.asin(Math.sqrt(Math.sin((p2 - p1) / 2) ** 2 + Math.cos(p1) * Math.cos(p2) * Math.sin((l2 - l1) / 2) ** 2)) || 1e-9;
+  const A = Math.sin((1 - t) * d) / Math.sin(d), B = Math.sin(t * d) / Math.sin(d);
+  const x = A * Math.cos(p1) * Math.cos(l1) + B * Math.cos(p2) * Math.cos(l2), y = A * Math.cos(p1) * Math.sin(l1) + B * Math.cos(p2) * Math.sin(l2), z = A * Math.sin(p1) + B * Math.sin(p2);
+  return { lat: deg(Math.atan2(z, Math.hypot(x, y))), lon: deg(Math.atan2(y, x)) };
+}
+const wrap180 = (d) => ((d + 540) % 360) - 180;
+function draw() {
+  if (!dragging) { view.lat += (target.lat - view.lat) * 0.06; view.lon += wrap180(target.lon - view.lon) * 0.06; }
+  drawT = Math.min(1, drawT + (reduceMotion ? 1 : 0.012));
+  ctx.clearRect(0, 0, S, S);
+  const sea = ctx.createRadialGradient(C - R * .35, C - R * .4, R * .1, C, C, R);
+  sea.addColorStop(0, '#FAF8F4'); sea.addColorStop(1, '#C9D2CC');
+  ctx.fillStyle = sea; ctx.beginPath(); ctx.arc(C, C, R, 0, Math.PI * 2); ctx.fill();
+  for (const [la, lo] of LAND) { const q = proj(la, lo); if (q.z <= 0) continue;
+    ctx.fillStyle = `rgba(31,138,93,${0.35 + 0.55 * q.z})`; ctx.beginPath(); ctx.arc(q.x, q.y, 3.4, 0, 7); ctx.fill(); }
+  ctx.strokeStyle = '#290907'; ctx.lineWidth = 6; ctx.lineCap = 'round'; ctx.beginPath(); let on = false;
+  for (let i = 0; i <= 140 * drawT; i++) { const g = gc(city, KAABA, i / 140), q = proj(g.lat, g.lon);
+    if (q.z <= 0) { on = false; continue; } on ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y); on = true; }
+  ctx.stroke();
+  const k = proj(KAABA.lat, KAABA.lon), c = proj(city.lat, city.lon);
+  if (c.z > 0) { ctx.fillStyle = '#290907'; ctx.beginPath(); ctx.arc(c.x, c.y, 11, 0, 7); ctx.fill(); ctx.fillStyle = '#FAF8F4'; ctx.beginPath(); ctx.arc(c.x, c.y, 4, 0, 7); ctx.fill(); }
+  if (k.z > 0) { ctx.fillStyle = 'rgba(212,175,55,.35)'; ctx.beginPath(); ctx.arc(k.x, k.y, 30 + (reduceMotion ? 0 : 6 * Math.sin(Date.now() / 400)), 0, 7); ctx.fill();
+    ctx.fillStyle = '#0B1512'; ctx.fillRect(k.x - 12, k.y - 12, 24, 24); ctx.fillStyle = '#D4AF37'; ctx.fillRect(k.x - 12, k.y - 6, 24, 4); }
+  requestAnimationFrame(draw);
+}
+function choose(c, btn) {
+  city = c; drawT = 0; const mid = gc(c, KAABA, .5); target = { lat: Math.max(-40, Math.min(50, mid.lat)), lon: mid.lon };
+  document.getElementById('tag').innerHTML = `${c.name} → Makkah · <b>${Math.round(qiblaBearing(c.lat, c.lon))}°</b> · ${Math.round(qiblaDistance(c.lat, c.lon)).toLocaleString('en')} km · ${localTime(c.tz)}`;
+  document.querySelectorAll('#cities button').forEach((b) => b.setAttribute('aria-pressed', b === btn));
+}
+const box = document.getElementById('cities');
+CITIES.forEach((c, i) => { const b = document.createElement('button'); b.textContent = c.name; b.onclick = () => choose(c, b); box.append(b); if (!i) choose(c, b); });
+const globe = document.getElementById('globe');
+globe.addEventListener('pointerdown', (e) => { dragging = { x: e.clientX, y: e.clientY, lat: view.lat, lon: view.lon }; globe.setPointerCapture(e.pointerId); });
+globe.addEventListener('pointermove', (e) => { if (!dragging) return; const k = 180 / globe.clientWidth;
+  view.lon = dragging.lon - (e.clientX - dragging.x) * k; view.lat = Math.max(-70, Math.min(70, dragging.lat + (e.clientY - dragging.y) * k)); });
+globe.addEventListener('pointerup', () => { dragging = null; target = { ...view }; });
+draw();
+
+/* ---------- Get the app: a phone goes to its own store, a computer to the buttons + QR ---------- */
+const STORE = {
+  play: 'https://play.google.com/store/apps/details?id=com.tarazi.qiblacompass',
+  apple: '', // set on App Store approval; until then an iPhone is sent to the buttons
+};
+const ua = navigator.userAgent;
+const isAndroid = /Android/i.test(ua);
+const isIOS = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+const getApp = document.getElementById('getApp'), row = document.getElementById('get');
+const phoneStore = isAndroid ? STORE.play : isIOS ? STORE.apple : '';
+if (phoneStore) { getApp.href = phoneStore; getApp.target = '_blank'; getApp.rel = 'noopener'; }
+else {
+  let timer;
+  const lookhere = () => { row.classList.remove('lookhere'); void row.offsetWidth; row.classList.add('lookhere');
+    clearTimeout(timer); timer = setTimeout(() => row.classList.remove('lookhere'), 2800); };
+  getApp.addEventListener('click', lookhere);
+  addEventListener('hashchange', () => { if (location.hash === '#get') lookhere(); });
+}
+if (STORE.apple) document.querySelectorAll('[data-store=apple]').forEach((a) => { a.href = STORE.apple; });
+
+/* ---------- language band ---------- */
+document.getElementById('band').innerHTML = [...LANGS, ...LANGS].map((l) => `<span>${l}</span>`).join('');
+
+/* ---------- compass window ---------- */
+const ticks = document.getElementById('ticks');
+for (let a = 0; a < 360; a += 15) { const r1 = a % 45 ? 142 : 132;
+  ticks.insertAdjacentHTML('beforeend', `<line x1="${200 + r1 * Math.sin(rad(a))}" y1="${200 - r1 * Math.cos(rad(a))}" x2="${200 + 150 * Math.sin(rad(a))}" y2="${200 - 150 * Math.cos(rad(a))}" stroke="rgba(255,255,255,.35)" stroke-width="${a % 45 ? 1 : 2}"/>`); }
+const needle = document.getElementById('needle'), sel = document.getElementById('city');
+function show(lat, lon) { const b = qiblaBearing(lat, lon);
+  needle.style.transform = `rotate(${b}deg)`;
+  document.getElementById('brg').textContent = Math.round(b) + '°';
+  document.getElementById('dst').textContent = Math.round(qiblaDistance(lat, lon)).toLocaleString('en'); }
+sel.innerHTML = CITIES.map((c, i) => `<option value="${i}">${c.name}</option>`).join('');
+sel.onchange = () => { const c = CITIES[sel.value]; show(c.lat, c.lon); };
+setTimeout(() => show(CITIES[0].lat, CITIES[0].lon), 300);
+document.getElementById('me').onclick = () => navigator.geolocation && navigator.geolocation.getCurrentPosition((p) => show(p.coords.latitude, p.coords.longitude));
+
+/* ---------- language list: lights up one by one, only with animation on ---------- */
+const words = document.getElementById('words'); words.innerHTML = LANGS.map((l) => `<span>${l}</span>`).join('');
+let li = 0; if (!reduceMotion) setInterval(() => { [...words.children].forEach((s, i) => s.classList.toggle('on', i === li)); li = (li + 1) % LANGS.length; }, 1100);
+
+const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && e.target.classList.add('in')), { threshold: .12 });
+document.querySelectorAll('.fade').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>

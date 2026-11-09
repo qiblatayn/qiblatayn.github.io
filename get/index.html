@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Get Qiblatayn</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #EFE9E1; color: #290907; font: 17px/1.6 system-ui, sans-serif; text-align: center; }
+  a { color: #1F8A5D; }
+</style>
+<script>
+// The QR code lands here: a phone goes straight to its own store.
+(function () {
+  var PLAY = 'https://play.google.com/store/apps/details?id=com.tarazi.qiblacompass';
+  var APPLE = ''; // set on App Store approval
+  var ua = navigator.userAgent;
+  var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  var to = /Android/.test(ua) ? PLAY : ios ? (APPLE || '../#get') : '../';
+  location.replace(to);
+})();
+</script>
+</head>
+<body>
+<p>Opening your store…<br><a href="https://play.google.com/store/apps/details?id=com.tarazi.qiblacompass">Google Play</a> · <a href="../">qiblatayn.github.io</a></p>
+</body>
+</html>

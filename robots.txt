@@ -1,0 +1,6 @@
+# Every crawler is welcome, AI assistants included.
+User-agent: *
+Allow: /
+Disallow: /get/
+
+Sitemap: https://qiblatayn.github.io/sitemap.xml

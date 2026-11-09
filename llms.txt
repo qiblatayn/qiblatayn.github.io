@@ -1,0 +1,25 @@
+# Qiblatayn
+
+> Qiblatayn is a free prayer app for Muslims: accurate prayer times, a qibla compass corrected to true north, and the adhan, in ten languages. It works offline, and the user's location never leaves the phone. Android (Google Play) now; iPhone and Apple Watch coming.
+
+## What it does
+- Prayer times by 12 calculation methods (MWL, Umm al-Qura, Egyptian, Karachi, ISNA, Diyanet, Tehran, Dubai, Qatar, Kuwait, Singapore, Moonsighting), standard or Hanafi Asr, high-latitude rules, a minute offset per prayer, any day's times, shown on the chosen city's own clock.
+- Qibla compass: true north from the World Magnetic Model (offline), calibration guide, accuracy indicator, distance to the Kaaba.
+- Reminders per prayer: adhan (a public-domain recording from Doha), silent, or off; an optional reminder before each prayer; a test notification.
+- Hijri calendar with a ± day adjustment, day turning at midnight or sunset, the year's holidays, optional Monday & Thursday fasts.
+- Tasbih counter with common sequences or an open count; it keeps no history.
+- Personal dates (birthdays, anniversaries, remembrance) by the Hijri or Gregorian calendar.
+- Languages: Arabic, Urdu, Persian, Indonesian, Turkish, Bengali, Malay, French, Russian, English — all free.
+
+## Free and Premium
+The prayer core (times, qibla, adhan, calendar, tasbih, all languages) is free. Premium adds the AR camera qibla, home-screen widgets, the Apple Watch app, unlimited saved locations and personal dates. Premium comes as a 7, 14 or 30-day travel pass that ends by itself, a monthly or yearly subscription, or a one-time lifetime unlock.
+
+## Privacy
+No account, no ads, no analytics, no trackers. Times and qibla are computed on the device. The app has no server that stores user data.
+
+## Links
+- English: https://qiblatayn.github.io/
+- العربية: https://qiblatayn.github.io/ar/
+- Google Play: https://play.google.com/store/apps/details?id=com.tarazi.qiblacompass
+- Support: https://qiblatayn.github.io/support/
+- Privacy policy: https://qiblatayn.github.io/privacy/
