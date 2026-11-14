@@ -157,6 +157,7 @@ details p { color: var(--muted); margin-top: 10px; }
 .qr-top { display: flex; align-items: center; gap: 12px; margin-left: 6px; font-size: 13px; line-height: 1.35; color: var(--muted); }
 .hint { font-size: 14px; color: var(--muted); margin: 26px 0 0; }
 .hint + .cities { margin-top: 10px; }
+.cities + #get { margin-top: 18px; }
 
 /* screens strip */
 .screens { margin-top: 110px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
@@ -229,13 +230,13 @@ img.qr { display: block; background: var(--card); }
     <p class="kicker">A prayer companion · <b>wherever you are</b></p>
     <h1 style="margin-top:20px">One direction,<br><em>from anywhere</em><br>on earth.</h1>
     <p>Prayer times, the qibla and the adhan — accurate in your home city and in the next one you land in. Free, offline, private.</p>
+    <p class="hint">Pick a city — the globe draws its way to Makkah.</p>
+    <div class="cities" id="cities"></div>
     <div class="stores" id="get">
       <a class="store badge apple soon" data-store="apple" aria-disabled="true"><img src="img/badge-appstore-en.svg" alt="Download on the App Store" width="120" height="40"><span class="soon-tag">Coming soon</span></a>
       <a class="store badge play" data-store="play" href="https://play.google.com/store/apps/details?id=com.tarazi.qiblacompass" target="_blank" rel="noopener"><img src="img/badge-googleplay-en.png" alt="Get it on Google Play" width="646" height="250"></a>
       <div class="qr-top"><img class="qr sm" src="img/qr.svg" alt="QR code: download Qiblatayn"><span>On a computer?<br>Scan with your phone.</span></div>
     </div>
-    <p class="hint">Pick a city — the globe draws its way to Makkah.</p>
-    <div class="cities" id="cities"></div>
   </div>
   <div class="globe" id="globe"><canvas id="g" width="1120" height="1120" aria-label="Globe showing the way from a city to Makkah"></canvas><div class="tag" id="tag">—</div></div>
 </header>
