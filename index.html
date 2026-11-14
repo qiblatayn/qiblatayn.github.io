@@ -193,15 +193,18 @@ details p { color: var(--muted); margin-top: 10px; }
 @media (max-width: 900px) { .screens { grid-template-columns: 1fr 1fr; } .groups { grid-template-columns: 1fr; } .compare th, .compare td { padding: 12px 12px; font-size: 14px; } .qr-top { display: none; } }
 
 footer { border-top: 1px solid color-mix(in srgb, var(--ink) 12%, transparent); }
-footer .wrap { display: flex; justify-content: space-between; padding: 36px 28px 60px; font-size: 14px; color: var(--muted); }
-footer a { margin-left: 20px; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; padding: 36px 28px 60px; font-size: 14px; color: var(--muted); }
+footer .wrap > span:last-child { display: flex; gap: 20px; }
 
 .fade { opacity: 0; transform: translateY(30px); transition: opacity 1s, transform 1s cubic-bezier(.2,.9,.2,1); } .fade.in { opacity: 1; transform: none; }
 
 @media (max-width: 900px) {
   .hero, .window, .split { grid-template-columns: 1fr; } .hero { min-height: auto; padding-top: 110px; }
   .window, .panel, .final { padding: 34px 22px; } .numbers { grid-template-columns: 1fr 1fr; } .cards { grid-template-columns: 1fr; }
-  nav .r a.ln { display: none; } .me { margin: 10px 0 0; }
+  nav .r a.ln:not(.lang) { display: none; } nav .r { gap: 4px; font-size: 14px; } nav .r a { white-space: nowrap; } nav .r a.ln.lang { padding: 8px 4px; } nav .get { padding: 9px 14px; } .brand { font-size: 23px; gap: 8px; } .me { margin: 10px 0 0; }
+  /* Phone: the globe right under the intro, then the cities that drive it, then the store buttons. */
+  .hero { row-gap: 0; } .hero > div:first-child { display: contents; }
+  .hero .globe { order: 1; margin-top: 8px; } .hero .hint, .hero .cities, .hero #get { order: 2; }
 }
 /* Animation off: the band stands still and wraps, the list stays one colour. */
 @media (prefers-reduced-motion: reduce) {
@@ -223,7 +226,7 @@ img.qr { display: block; background: var(--card); }
 </head>
 <body>
 <nav><a class="brand" href="./"><img src="img/icon-96.png" alt="" width="30" height="30">Qiblatayn</a>
-  <div class="r"><a class="ln" href="#qibla">Qibla</a><a class="ln" href="#features">Features</a><a class="ln" href="#faq">FAQ</a><a class="ln" href="ar/" lang="ar" hreflang="ar">🌐 العربية</a><a class="get" id="getApp" href="#get">Get the app</a></div></nav>
+  <div class="r"><a class="ln" href="#qibla">Qibla</a><a class="ln" href="#features">Features</a><a class="ln" href="#faq">FAQ</a><a class="ln lang" href="ar/" lang="ar" hreflang="ar">🌐 العربية</a><a class="get" id="getApp" href="#get">Get the app</a></div></nav>
 
 <header class="wrap hero">
   <div>
@@ -412,7 +415,7 @@ img.qr { display: block; background: var(--card); }
   </div>
 </section>
 
-<footer><div class="wrap"><span>© 2026 Qiblatayn</span><span><a href="privacy/">Privacy</a><a href="support/">Support</a></span></div></footer>
+<footer><div class="wrap"><span>© 2026 Qiblatayn</span><span><a href="ar/" lang="ar" hreflang="ar">🌐 العربية</a><a href="privacy/">Privacy</a><a href="support/">Support</a></span></div></footer>
 
 <script src="shared.js"></script>
 <script src="land-dots.js"></script>
